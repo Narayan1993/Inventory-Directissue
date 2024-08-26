@@ -7,8 +7,7 @@ public class mainforTechnicianTracking extends Techniciantracking{
 	
 	public void InactiveTechnician() {
 		
-		List<String> list = new ArrayList<> ();
-		list.add("//th[contains(text(), 'Employee ID')]".send)
+	
 		
 		
 		

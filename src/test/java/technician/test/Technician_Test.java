@@ -19,7 +19,7 @@ public class Technician_Test extends All_Page_Intializer {
 	    
 	  }     
 	    
-	  @Test(enabled = false)   
+	  @Test(priority = 2)   
 	   
 	  public void verifyAllElements() throws Throwable { 
 	  //addTechnician.click(); 
@@ -31,7 +31,7 @@ public class Technician_Test extends All_Page_Intializer {
 	  } 
 	    
 	 
-	  @Test(enabled = false)  //priority 3
+	  @Test(priority = 3)  //priority 3
 	  public void newEmployeeaddInEmployeeScreen() throws Throwable { 
 	  //Technician_Test().EmployeeAdd(4);
 	  Technician_Test().newJobcardOpen();  
@@ -39,7 +39,7 @@ public class Technician_Test extends All_Page_Intializer {
 	    
 	  } 
 	   
-	  @Test(enabled = false) //priority 4
+	  @Test(priority = 4) //priority 4
 	  public void singleTechnicianCheck() throws Throwable {
 	 // Technician_Test().technicianpop_ValidationsInEstimationScreen();
 	  Technician_Test().singletechnicianSelection();  
@@ -67,7 +67,7 @@ public class Technician_Test extends All_Page_Intializer {
 	  
 	  }  
 	  
-	  @Test(enabled=false) //priority 7  
+	  @Test(priority = 7) //priority 7  
 	  public void InactiveTechnicianTest() throws Throwable 
 	  {
 	  
@@ -75,7 +75,7 @@ public class Technician_Test extends All_Page_Intializer {
 	  Technician_Test().savebuttonvalidataioInTechnician();
 	    
 	  } 
-	  @Test(enabled=false)   
+	  @Test(priority = 8)   
 	  public void ColorValidationInEstimationAndJobqueuePage() throws Throwable  { 
 		  Technician_Test().colourValidationInEstimationScreen();
 		  
@@ -83,7 +83,7 @@ public class Technician_Test extends All_Page_Intializer {
 		  
 	  }
 	 
-	@Test(enabled = false) 
+	@Test(priority = 9) 
 	  public void EnableAndDisableTechnicianInSuperAdmin() throws Throwable {
 		   
 			/*
