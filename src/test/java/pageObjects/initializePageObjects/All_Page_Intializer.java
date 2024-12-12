@@ -19,7 +19,7 @@ public class All_Page_Intializer extends BaseMethod {
 	    public Techniciantracking Technician_Test() {
 	       return PageFactory.initElements(getWebDriver(), Techniciantracking.class);
 	    	    
-	}   
+	}    
 	    
 	    public Create_Jobcard_page CreateJobcardPage() {
 	        return PageFactory.initElements(getWebDriver(), Create_Jobcard_page.class);

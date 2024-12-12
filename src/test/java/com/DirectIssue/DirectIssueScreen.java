@@ -1,5 +1,7 @@
 package com.DirectIssue;
 
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -154,7 +156,7 @@ public class DirectIssueScreen extends BaseMethod {
 
 	@FindBy(xpath = "//li[@id='partsOption1']//a")
 	WebElement InwardScreen;
-	@FindBy(xpath = "//span[@class='dropdown_arrows']//i[@class='fa fa-plus-square']")
+	@FindBy(xpath = "//i[@class='fa fa-plus-square']")
 	WebElement VendorPlusButton;
 	@FindBy(xpath = "//input[@id='vendorName']")
 	WebElement VendorNameEntry;
@@ -409,7 +411,9 @@ public class DirectIssueScreen extends BaseMethod {
 		StockCheckButton.click();
 		VendorPlusButton.click();
 		Thread.sleep(2000);
-		VendorNameEntry.sendKeys(getAutoGenerateOnlyString(8));
+		VendorNameEntry.sendKeys(getAutoGenerateOnlyString(8)); 
+		String VendorNamePrint = VendorNameEntry.getAttribute("value");
+		System.out.println("The vendor name is : " + VendorNamePrint);
 		Thread.sleep(2000);
 		MobileNumber.sendKeys("9" + autoGenerateNumber(9, "123456789"));
 		ClosebuttonInpopup.click();
@@ -421,7 +425,7 @@ public class DirectIssueScreen extends BaseMethod {
 		SelectDate.click();
 		Thread.sleep(2000);
 		DateSelection.click();
-		PartNameEnter.sendKeys(partName);
+		PartNameEnter.sendKeys(partName); 
 		QTY.sendKeys("10");
 		PartPriceEntry.sendKeys("100");
 		Thread.sleep(1000);
@@ -457,7 +461,7 @@ public class DirectIssueScreen extends BaseMethod {
 			Thread.sleep(1000); 
 			SearchInStockScreen.click();
 			SearchInStockScreen.sendKeys(AutoGeneratepartName);
-		
+		 
 		}
 
 		if (!actual.equals(expected)) {
@@ -472,7 +476,7 @@ public class DirectIssueScreen extends BaseMethod {
 		list.add(PartName.getText());
 		list.add(BrandInStockScreen.getText());
 		list.add(Category.getText());
-		list.add(QOH.getText());
+		list.add(QOH.getText()); 
 		list.add(PurchasePrice.getText());
 		list.add(SellingPriceInStock.getText());
 		System.out.println("The total Stock list is :" + list);
@@ -516,7 +520,7 @@ public class DirectIssueScreen extends BaseMethod {
 			PartnameEntryInIssueScreen.sendKeys(AutoGeneratepartName);
 			Thread.sleep(2000);
 			PartInIssueDropDown.click();
-			Thread.sleep(2000);
+			Thread.sleep(2000); 
 			IssueScreenQty.sendKeys(Issueingqty);
 			Thread.sleep(2000);
 			PlusButtonInIssueScreen.click();
@@ -559,13 +563,19 @@ public class DirectIssueScreen extends BaseMethod {
 		String qtyInGrid = GetqtyFromDirectIssueGrid.getAttribute("value");
 		int issueqty = Integer.parseInt(Issueingqty);
 		System.out.println("After converting to the integer the issueqty dropdown is : " + issueqty);
-		String Reqqty = autoGenerateNumber(1, "6789");
+		String Reqqty = autoGenerateNumber(1, "2345");  
 		int RequiredQty = Integer.parseInt(Reqqty);
-		if (issueqty <= RequiredQty) {
-			String Rq = String.valueOf(RequiredQty);
+		if (issueqty > RequiredQty) { 
+			String Rq = String.valueOf(RequiredQty); 
 			Thread.sleep(2000);
-			if(IssueQtyIntheGrid.getAttribute("value")==null) {
-				
+			IssueQtyIntheGrid.sendKeys(Rq);
+			Thread.sleep(2000);
+			IssueButton.click();
+			Thread.sleep(3000);
+			driver.navigate().refresh(); 
+		
+		/*	if(IssueQtyIntheGrid.getAttribute("value")==null) {
+	
 				IssueQtyIntheGrid.sendKeys(Rq);
 				Thread.sleep(2000);
 				IssueButton.click();
@@ -574,9 +584,9 @@ public class DirectIssueScreen extends BaseMethod {
 			} else
 			IssueButton.click();
 			Thread.sleep(3000);
-			driver.navigate().refresh();
+			driver.navigate().refresh(); */
 			
-		}
+		
 		if (issueqty < RequiredQty) {
 			partNameEntryInTheIssueScreen(AutoGeneratepartName, Issueingqty);
 			String issue = String.valueOf(issueqty);
@@ -602,12 +612,31 @@ public class DirectIssueScreen extends BaseMethod {
 		String alert = AlertMessage.getText();
 		System.out.println("The alert message is :" + alert);
 		driver.navigate().refresh();
-
+		}
 	}
+public void CheckMorethanThecurrentIssueValue(String AutoGeneratepartName, String Issueingqty) throws Exception {
+	partNameEntryInTheIssueScreen(AutoGeneratepartName, Issueingqty);
+	
+	 String MoreThatIssueqty = Issueingqty+10;
+	 Thread.sleep(2000);
+	 IssueQtyIntheGrid.sendKeys(MoreThatIssueqty);
+	 Thread.sleep(2000);
+	 IssueButton.click();
+	 Thread.sleep(3000);
+	
+	 String alert = "Issue Quantity should be less than are equal to Pending Quantity";
+	 Assert.assertTrue(true, alert);
+	 System.out.println(alert);
+	 driver.navigate().refresh();  
+	 
+	
+		
+	}
+
 
 	public Map<String, String> IssueTabForQtyCheck(String AutoGeneratepartName) throws Exception {
 
-		String actual = driver.getTitle();
+		String actual = driver.getTitle(); 
 		String expected = "Inventory - Autorox";
 		if (actual.equals(expected)) {
 			navigateToIssueTab();
@@ -643,8 +672,8 @@ public class DirectIssueScreen extends BaseMethod {
 			System.out.println("Adding more value on requested qty :" + Reqqty);
 			String Actualreqqty = String.valueOf(Reqqty);
 			ReturnqtyfieldInpopup.sendKeys(Actualreqqty);
-			Thread.sleep(3000);
-		} else if (Correctqty == qty) {
+			Thread.sleep(3000); 
+		} else if (Correctqty == qty) { 
 			int Reqqty = Issueqtyvalue;
 			System.out.println("Adding more value on requested qty :" + Reqqty);
 			String Actualreqqty = String.valueOf(Reqqty);
@@ -674,8 +703,5 @@ public class DirectIssueScreen extends BaseMethod {
  
 	}
 
-	public void IssueTheqtyWithCorrectValue() {
-
-	}
-
+	
 }

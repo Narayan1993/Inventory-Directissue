@@ -128,7 +128,7 @@ public class Techniciantracking extends BaseMethod {
 	@FindBy(xpath = "/html/body/div[3]/div/div/div[3]/div[1]/div[2]/div[2]")
 	private WebElement NewJobcard;
 
-	@FindBy(xpath = "//li[@id='estlater']")
+	@FindBy(xpath = "//a[normalize-space()='New Job Card']")
 	private WebElement NewJobcardSelect;
 
 	@FindBy(xpath = "//input[@id='reg_2']")
@@ -579,6 +579,128 @@ public class Techniciantracking extends BaseMethod {
 	WebElement colorinTechnicianpopup;
 	
 	
+	//New job card screen
+	
+	       //registration number
+			@FindBy(xpath ="//input[@class='form-control input_custom ' ] [1]" )
+			WebElement regnumstatecode1;
+			
+			@FindBy(xpath ="//input[@class='form-control input_custom ' ] [2]" )
+			WebElement regnumstatecode2;
+			
+			@FindBy(xpath ="//input[@class='form-control input_custom ' ] [2]//following-sibling::input" )
+			WebElement regnumstatecode3;
+	
+			//odometer
+					
+			@FindBy(xpath ="//input[@placeholder='Enter Odometer Reading']" )
+			WebElement NewOdometer;
+			
+			//VIN Number
+			
+			@FindBy(xpath ="//input[@placeholder = 'Enter VIN Number']" )
+			WebElement NewVinNumber;
+			
+			//Engine number
+			
+			
+			@FindBy(xpath ="//input[@placeholder = 'Enter Engine No.']" )
+			WebElement EngineNumber;
+			
+			//MMVY
+			
+			@FindBy(xpath ="//div[@class='search_m9 ']" )
+			WebElement SearchButton;
+			
+			
+			
+			//search button enter
+			@FindBy(xpath ="//input[@class='floating-input form-control']" )
+			WebElement SearchButtonEnter;
+			
+			//Make
+			
+			@FindBy(xpath ="//div[contains(text(), '(e.g Maruti, Honda)')]" )
+			WebElement EnterMake;
+			
+			//Model
+			   	
+			@FindBy(xpath ="//div[contains(text(), '(e.g Civic, Seltos)')]" )
+			WebElement EnterModel;
+			
+			//Year
+			@FindBy(xpath ="//div[contains(text(), 'Enter Year')]" )
+			WebElement EnterYear;
+			
+			//Variant
+			@FindBy(xpath ="//div[contains(text(), '(e.g ZX, VX)')]" )
+			WebElement EnterVariant;
+			
+			
+			
+			//Navigating to new job card from Menu
+			
+			@FindBy(xpath ="(//span[contains(text(), 'Job Cards')])[1]//preceding::img[1]") 
+			WebElement NavigatingJobCardFromMenu;
+			
+	public void newregistrationnumberEnter() throws Exception {
+		
+		regnumstatecode1.sendKeys(autoGenerateNumber(2, "123456789"));
+		Thread.sleep(2000);
+		regnumstatecode2.sendKeys(getAutoGenerateOnlyString(2));
+		Thread.sleep(2000);
+		regnumstatecode3.click();
+		Thread.sleep(2000);
+		regnumstatecode3.sendKeys(autoGenerateNumber(4, "123456789"));	
+	}
+	
+	public void newodometer() {
+		
+		NewOdometer.sendKeys(autoGenerateNumber(4, "123456789"));
+			
+	}
+	
+	public void VINnumber() {
+		
+		NewVinNumber.sendKeys(autoGenerateNumber(5, "123456789"));	
+}
+	
+	public void EngineNumber() {
+		
+		EngineNumber.sendKeys(autoGenerateNumber(5, "123456789"));
+}
+	public void MMVY() throws Exception {
+		
+//		SearchButton.click();
+//		Thread.sleep(1000);
+//		SearchButtonEnter.sendKeys("tata");
+//		Thread.sleep(1000);
+//		SearchButtonEnter.sendKeys(Keys.ARROW_DOWN);
+//		SearchButtonEnter.sendKeys(Keys.ENTER);
+		
+		Thread.sleep(2000);
+		//EnterMake.click();
+		Thread.sleep(2000);
+		
+		Actions ac = new Actions(driver);
+		ac.moveToElement(EnterMake).doubleClick().build().perform();
+		
+//		JavascriptExecutor jse = (JavascriptExecutor) driver;
+//		jse.executeScript("document.getElementsByClassName('search')[2].value='tata';");
+		
+		EnterMake.sendKeys("Tata");
+		EnterMake.sendKeys(Keys.ENTER);
+		EnterModel.sendKeys("Tiago");
+		EnterModel.sendKeys(Keys.ENTER);
+		EnterYear.sendKeys("2000");
+		EnterYear.sendKeys(Keys.ENTER);
+		EnterVariant.sendKeys("Automatic");
+		EnterVariant.sendKeys(Keys.ENTER);
+	
+		
+		
+		
+		}
 	
 	
 	
@@ -854,14 +976,70 @@ public class Techniciantracking extends BaseMethod {
 		}
 	}
 
+	
+	//Navigating to new Job card
+	
+	public void navigatingToNewJobcard() throws InterruptedException {
+		
+		String Title = driver.getTitle();
+		System.out.println("The current title is : " + Title);
+		
+		if(Title != "Book Appointment - Autorox") {
+			
+			Menu_button1.click();
+			Thread.sleep(1000);
+			NavigatingJobCardFromMenu.click();
+			
+		}
+		
+	}
+	
+	
+	
 	// New job card page
 
-	public void newJobcardOpen() throws Throwable {
+	public void newJobcardOpen() throws Throwable { 
 
-		Navigation("workshop/serviceTickets");
+		//Navigation("workshop/serviceTickets");
 
 		NewJobcard.click(); 
-		NewJobcardSelect.click();
+		NewJobcardSelect.click(); 
+		
+		newregistrationnumberEnter();
+		newodometer();
+		VINnumber();
+		EngineNumber();
+		MMVY();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		odometer.sendKeys(autoGenerateNumber(3, "123456789")); 
 		registrationNumber("India"); 
 		Thread.sleep(3000);
@@ -1284,13 +1462,7 @@ public class Techniciantracking extends BaseMethod {
 			System.out.println("The grey color is not matching in technician popup");
 			
 		}
-		 
-		 
-		
-		
-		
-		
-		
+	
 	}
 
 	public void superadmincheck() throws Throwable {
