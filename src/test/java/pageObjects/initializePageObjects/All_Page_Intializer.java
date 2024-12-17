@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.DirectIssue.DirectIssueScreen;
+import com.JobCardCreationAndValidation.JobCardCreationAndValidation;
+import com.JobCardCreationAndValidation.JobcardTest;
 import com.autorox.All_Pages.Login_Page;
 import com.techniciantracking.Techniciantracking;
 
@@ -29,5 +31,13 @@ public class All_Page_Intializer extends BaseMethod {
 	    	 
 	    	return PageFactory.initElements(getWebDriver(), DirectIssueScreen.class);
 	    }
+	    
+	    public JobCardCreationAndValidation new_JobCard () {
+	    	
+	    	return PageFactory.initElements(getWebDriver(), JobCardCreationAndValidation.class);
+	    		
+	    		
+	    	}
+	    
 	  
 }

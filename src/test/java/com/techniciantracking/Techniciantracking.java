@@ -620,28 +620,98 @@ public class Techniciantracking extends BaseMethod {
 			
 			//Make
 			
-			@FindBy(xpath ="//div[contains(text(), '(e.g Maruti, Honda)')]" )
+			@FindBy(xpath ="(//input[@id='input-2'])[5]" )
 			WebElement EnterMake;
 			
 			//Model
 			   	
-			@FindBy(xpath ="//div[contains(text(), '(e.g Civic, Seltos)')]" )
+			@FindBy(xpath ="(//input[@class='search'])[3]" )
 			WebElement EnterModel;
 			
 			//Year
-			@FindBy(xpath ="//div[contains(text(), 'Enter Year')]" )
+			@FindBy(xpath ="(//input[@class='search'])[4]" )
 			WebElement EnterYear;
 			
+			
+			@FindBy(xpath ="(//div[@class='item selected'])[3]" )
+			WebElement YearSelect;
+			
 			//Variant
-			@FindBy(xpath ="//div[contains(text(), '(e.g ZX, VX)')]" )
+			
+			
+			@FindBy(xpath ="//div[contains(text(),'(e.g ZX, VX)')]//preceding-sibling::input" )
 			WebElement EnterVariant;
 			
+			@FindBy(xpath ="//div[@class='item' and normalize-space(text())='AUTOMATIC']" )
+			WebElement VariantEntry;
 			
+			
+			@FindBy(xpath ="//div[@class='search_m9 ']//div" )
+			WebElement SearchButtonInNewJobcardScreen;
+			
+			//Other details like service type and custom details
+			
+			
+			@FindBy(xpath ="//div[contains(text(),'Select Service Type')]//preceding-sibling::i" )
+			WebElement ServiceType;
+			
+			@FindBy(xpath ="//div[contains(text(),'Select Service Type')]//preceding-sibling::input" )
+			WebElement ServiceTypeEnter;
+			
+			
+			@FindBy(xpath ="(//div[@class='form-group input_m15']//following::label)[13]" )
+			WebElement ServiceAdvisorLabel;
+			
+			
+			@FindBy(xpath ="(//h5[@class='color2 font_17px d-inline-block fweight_600'])[3]" )
+			WebElement ServiceTypeFuelEstimationDelivery;
+			
+			//span[text()='WHITE']
+			@FindBy(xpath ="//span[text()='WHITE']" )
+			WebElement WhiteColor;
+			
+			
+			@FindBy(xpath ="//div[contains(text(),'PMS')]" )
+			WebElement PMSclick;
+			
+			
+		    @FindBy(xpath ="(//div[@class='ui fluid search selection dropdown']//i)[9]" )
+		    WebElement CustomField1;
+		    
+		    
+		    @FindBy(xpath ="(//div[@class='menu visible'])//div[3]" )
+			WebElement CustomFieldselect;
 			
 			//Navigating to new job card from Menu
 			
 			@FindBy(xpath ="(//span[contains(text(), 'Job Cards')])[1]//preceding::img[1]") 
 			WebElement NavigatingJobCardFromMenu;
+			
+			
+			
+			@FindBy(xpath ="//input[@placeholder='Customer Name']") 
+			WebElement CustomerNameEnter;
+			
+			
+			@FindBy(xpath ="(//input[@class='form-control pad_l60'])[1]") 
+			WebElement MobileNumberEnter;
+			
+			//Click prepare estimationNow button
+			
+			@FindBy(xpath ="//button[contains(text(), 'PREPARE ESTIMATION')]") 
+			WebElement PrepareEstimationNowButton;
+			
+			// Click customer Concerns in left side menu
+			
+			@FindBy(xpath ="//*[@id=\"__BVID__17\"]/div/div[1]/ul/li[3]/a") 
+			WebElement ClickCustomerConcernsInLeftMenu;
+			
+			// Vehicle Details Label
+			               
+			@FindBy(xpath ="//h3[contains(text(),'VEHICLE DETAILS')]") 
+			WebElement VehicleDetailsLabel;
+			
+			
 			
 	public void newregistrationnumberEnter() throws Exception {
 		
@@ -671,12 +741,6 @@ public class Techniciantracking extends BaseMethod {
 }
 	public void MMVY() throws Exception {
 		
-//		SearchButton.click();
-//		Thread.sleep(1000);
-//		SearchButtonEnter.sendKeys("tata");
-//		Thread.sleep(1000);
-//		SearchButtonEnter.sendKeys(Keys.ARROW_DOWN);
-//		SearchButtonEnter.sendKeys(Keys.ENTER);
 		
 		Thread.sleep(2000);
 		//EnterMake.click();
@@ -684,26 +748,64 @@ public class Techniciantracking extends BaseMethod {
 		
 		Actions ac = new Actions(driver);
 		ac.moveToElement(EnterMake).doubleClick().build().perform();
-		
-//		JavascriptExecutor jse = (JavascriptExecutor) driver;
-//		jse.executeScript("document.getElementsByClassName('search')[2].value='tata';");
-		
+
 		EnterMake.sendKeys("Tata");
+		Thread.sleep(1000);
 		EnterMake.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
 		EnterModel.sendKeys("Tiago");
 		EnterModel.sendKeys(Keys.ENTER);
+		Thread.sleep(2000);
+		EnterYear.click();
 		EnterYear.sendKeys("2000");
-		EnterYear.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
+		YearSelect.click();
+		Thread.sleep(1000);
 		EnterVariant.sendKeys("Automatic");
-		EnterVariant.sendKeys(Keys.ENTER);
-	
-		
-		
-		
+		Thread.sleep(1000);	
+        VariantEntry.click();
+        //JavascriptExecutor jse = (JavascriptExecutor) driver;       
+        //jse.executeScript("document.body.style.zoom='65%'");
+           
 		}
 	
+	public void EnterOtherDetails() throws Exception {
+		
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("document.getElementsByClassName('dropdown icon')[5].click();");
+		//jse.executeScript("getElementsByClassName('text default')[1].click();");
+		ServiceAdvisorLabel.click();
+		Thread.sleep(3000);
+		ServiceType.click();
+		WhiteColor.click();
+		
+		Actions sc = new Actions(driver); 
+		sc.moveToElement(ServiceType).click().build().perform();
+		Thread.sleep(4000);
+		ServiceTypeEnter.sendKeys("PMS");
+		Thread.sleep(2000);
+		PMSclick.click();
+		CustomField1.click();
+		Thread.sleep(2000);
+		CustomFieldselect.click();
+					
+		}
+		
+	public void CustomerDetails() {	
+		
+		CustomerNameEnter.sendKeys(getAutoGenerateOnlyString(5));
+		MobileNumberEnter.sendKeys("99" + autoGenerateNumber(8, "123456789"));	
+		
+	}
 	
+	public void ClickCustomerConcernsInLeftSideMenu() {
+		ClickCustomerConcernsInLeftMenu.click();
+		
+	}
 	
+	public void ClickPrepareEstimationNow() {
+		PrepareEstimationNowButton.click();	
+	}
 	
 
 	public void TechnicianStartWork() throws Exception {
@@ -1001,45 +1103,24 @@ public class Techniciantracking extends BaseMethod {
 	public void newJobcardOpen() throws Throwable { 
 
 		//Navigation("workshop/serviceTickets");
-
+		String VehicleLabel = "VEHICLE DETAILS";
 		NewJobcard.click(); 
-		NewJobcardSelect.click(); 
-		
+		NewJobcardSelect.click(); 	
+		String VehicleLabelInNewJobcard = VehicleDetailsLabel.getText();
+
+		if(VehicleLabelInNewJobcard.equals(VehicleLabel)) {
 		newregistrationnumberEnter();
 		newodometer();
 		VINnumber();
 		EngineNumber();
 		MMVY();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		EnterOtherDetails();
+		CustomerDetails();
+		ClickCustomerConcernsInLeftSideMenu();
+		Thread.sleep(2000);
+		ClickPrepareEstimationNow();	
+        }
+		  else {
 		odometer.sendKeys(autoGenerateNumber(3, "123456789")); 
 		registrationNumber("India"); 
 		Thread.sleep(3000);
@@ -1070,11 +1151,11 @@ public class Techniciantracking extends BaseMethod {
 		emailid.sendKeys("Autorox13@gmail.com");
 		// EstDeliveryDate.click();
 		PrepareEstimation.click();
-
+		 
 		// GiveEstimationLater.click();
 
 	}
- 
+	}
 //Estimation screen
 
 	public void EstimationScreen(int n) throws Exception {

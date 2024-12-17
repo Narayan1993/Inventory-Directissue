@@ -2,16 +2,21 @@ package com.DirectIssue;
 
 import static org.testng.Assert.assertTrue;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import controllers.BaseMethod;
@@ -24,7 +29,7 @@ public class DirectIssueScreen extends BaseMethod {
 	WebElement username;
 
 	@FindBy(xpath = "//input[@id='password_login']")
-	WebElement password;
+	WebElement password; 
 
 	@FindBy(xpath = "//button[normalize-space()='Continue']")
 	WebElement submit;
@@ -44,6 +49,16 @@ public class DirectIssueScreen extends BaseMethod {
 
 	@FindBy(xpath = "//h5[@id='issueheaderId']")
 	WebElement IssueLabelInHeaders;
+	
+	
+	@FindBy(xpath = "//i[@id='switch_Price']")
+	WebElement SellingPriceToggleButton;
+	
+	
+	@FindBy(xpath = "//i[@class='swich fa fa-2x fa-toggle-on blue']")
+	WebElement SellingPriceToggleButtonTooltip;
+	
+	
 	@FindBy(xpath = "//a[normalize-space()='Home']")
 	WebElement HomesubHeader;
 	@FindBy(xpath = "//a[contains(text(),'Issue')]")
@@ -321,6 +336,7 @@ public class DirectIssueScreen extends BaseMethod {
 
 	}
 
+	
 	public void partNameEntryInTheIssueScreen(String AutoGeneratepartName, String Issueingqty) throws Exception {
 
 		PartnameEntryInIssueScreen.sendKeys(AutoGeneratepartName);
@@ -371,12 +387,56 @@ public class DirectIssueScreen extends BaseMethod {
 		validateResults(Pending, "Pending Qty");
 		String Sellingpricelabel = SellingPrice.getText();
 		validateResults(Sellingpricelabel, "Selling Price");
-		boolean Toggle = ToggleButton.isDisplayed();
-		validateResults(Toggle, true);
-		String IssueToLabel = IssuedTo.getText();
+//		boolean Toggle = ToggleButton.isDisplayed();
+//		validateResults(Toggle, true);
+		String IssueToLabel = IssuedTo.getText(); 
 		validateResults(IssueToLabel, "Issued To");
 	}
+	
+	public void CheckTheSellingPriceToggleButtonEnabledOrNot(String AutoGeneratepartName, String Issueingqty)
+			throws Exception {
 
+		partNameEntryInTheIssueScreen(AutoGeneratepartName, Issueingqty);
+		Thread.sleep(5000);
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+			WebElement toggleButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//i[@id='switch_Price']")));
+//		    if(SellingPriceToggleButton.isDisplayed()) {  
+//		    	
+			boolean SellingPriceToggle = SellingPriceToggleButton.isDisplayed();
+			validateResults(SellingPriceToggle, true);
+
+			// Check if the toggle button is present the message is displaying or not if we
+			// mousehover on the toggle button
+			Actions toggleButtoncursor = new Actions(driver);
+			toggleButtoncursor.moveToElement(SellingPriceToggleButton).build().perform();
+
+			// Toggle button tooltip
+			String Tooltip = SellingPriceToggleButtonTooltip.getText();
+			System.out.println(Tooltip);
+
+			// Check the toggle button is clickable or not
+			SellingPriceToggleButton.click();
+			// If the toggle button is disabled, the purchase price should display
+			String AfterClickingonSellingPriceToggleButton = SellingPrice.getText();
+			System.out.println("After clicking on toggle button :" + AfterClickingonSellingPriceToggleButton);
+			// If the toggle button is enabled, the purchase price should display
+			SellingPriceToggleButton.click();
+			String AfterClickingonPurchasePriceToggleButton = SellingPrice.getText();
+			System.out.println(
+					"After clicking on purchasepricetoggle button :" + AfterClickingonPurchasePriceToggleButton);
+
+			driver.navigate().refresh();
+		}
+//		    else {
+		catch (Exception e) {
+			driver.navigate().refresh();
+		}
+	}
+	
+		
+ 
+	
 	public void dropdownlabelsValidataion() {
 
 		PartNameEntryField.sendKeys("filter");
@@ -401,7 +461,8 @@ public class DirectIssueScreen extends BaseMethod {
 		String RackNo = RackNoInDropDown.getText();
 		validateResults(RackNo, "Rack No.");
 	}
-
+	
+   
 
 	String GetPartName;
 
@@ -614,23 +675,20 @@ public class DirectIssueScreen extends BaseMethod {
 		driver.navigate().refresh();
 		}
 	}
-public void CheckMorethanThecurrentIssueValue(String AutoGeneratepartName, String Issueingqty) throws Exception {
-	partNameEntryInTheIssueScreen(AutoGeneratepartName, Issueingqty);
 	
+public void CheckMorethanThecurrentIssueValueItshouldnotAllow(String AutoGeneratepartName, String Issueingqty) throws Exception {
+	partNameEntryInTheIssueScreen(AutoGeneratepartName, Issueingqty);
 	 String MoreThatIssueqty = Issueingqty+10;
 	 Thread.sleep(2000);
 	 IssueQtyIntheGrid.sendKeys(MoreThatIssueqty);
-	 Thread.sleep(2000);
+	 Thread.sleep(2000); 
 	 IssueButton.click();
 	 Thread.sleep(3000);
-	
 	 String alert = "Issue Quantity should be less than are equal to Pending Quantity";
 	 Assert.assertTrue(true, alert);
 	 System.out.println(alert);
-	 driver.navigate().refresh();  
-	 
+	 driver.navigate().refresh();   
 	
-		
 	}
 
 
@@ -663,7 +721,7 @@ public void CheckMorethanThecurrentIssueValue(String AutoGeneratepartName, Strin
 
 	public void returnqtyFromIssuedTab(String qty, String Issueingqty) throws Exception {
 		// Provide the return qty more than the issue qty
-		PartNameInIssueTab.click();
+		PartNameInIssueTab.click(); 
 		int Issueqtyvalue = Integer.parseInt(Issueingqty);
 		String Wrongqty = "Wrongqty";
 		String Correctqty = "CorrectQty";

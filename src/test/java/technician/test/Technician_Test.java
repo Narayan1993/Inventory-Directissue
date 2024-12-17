@@ -22,7 +22,7 @@ public class Technician_Test extends All_Page_Intializer {
 	    
 	  }     
 	    
-	  @Test(enabled = false)   
+	  @Test(enabled =false)   
 	   
 	  public void verifyAllElements() throws Throwable {  
 	  //addTechnician.click(); 
@@ -32,17 +32,17 @@ public class Technician_Test extends All_Page_Intializer {
 	  Technician_Test().duplicate_TechniciancheckInJobqueueScreen();
 	    	 
 	  } 
-	    
+	     
 	 
-	  @Test(priority = 2)  //priority 3
+	  @Test(priority = 3)  //priority 3
 	  public void newEmployeeaddInEmployeeScreen() throws Throwable { 
-	  //Technician_Test().EmployeeAdd(4);
-	  Technician_Test().newJobcardOpen();   
-	  Technician_Test().EstimationScreen(5);   
-	    
+	  //Technician_Test().EmployeeAdd(4); 
+	  Technician_Test().newJobcardOpen();    
+	  Technician_Test().EstimationScreen(5);     
+	     
 	  }  
 	   
-	  @Test(enabled = false) //priority 4
+	  @Test(priority = 4) //priority 4
 	  public void singleTechnicianCheck() throws Throwable {
 	 // Technician_Test().technicianpop_ValidationsInEstimationScreen();
 	  Technician_Test().singletechnicianSelection();  
@@ -50,7 +50,7 @@ public class Technician_Test extends All_Page_Intializer {
 	  } 
 	           
 	   
-	  @Test(enabled = false)   
+	  @Test(priority = 5)   
 	  public void selectMultipleTechnicians() throws Throwable {   
 	  Technician_Test().newJobcardOpen();
 	  Technician_Test().EstimationScreen(4);  
@@ -63,14 +63,14 @@ public class Technician_Test extends All_Page_Intializer {
 	  
 	  } 
 	   
-	  @Test(enabled = false) //priority 6
+	  @Test(priority = 6) //priority 6
 	  public void servicesInEstimationPage() throws Exception {
 	  
 	  //Technician_Test().labourNamesInExcel();
 	    
 	  }  
 	  
-	  @Test(enabled = false) //priority 7  
+	  @Test(priority = 7) //priority 7  
 	  public void InactiveTechnicianTest() throws Throwable 
 	  {
 	  
@@ -78,7 +78,7 @@ public class Technician_Test extends All_Page_Intializer {
 	  Technician_Test().savebuttonvalidataioInTechnician();
 	    
 	  } 
-	  @Test(enabled = false)   
+	  @Test(priority = 8)   
 	  public void ColorValidationInEstimationAndJobqueuePage() throws Throwable  { 
 		  Technician_Test().colourValidationInEstimationScreen();
 		  
@@ -86,7 +86,7 @@ public class Technician_Test extends All_Page_Intializer {
 		  
 	  }
 	 
-	@Test(enabled = false) 
+	@Test(priority = 9) 
 	  public void EnableAndDisableTechnicianInSuperAdmin() throws Throwable {
 		   
 			/*

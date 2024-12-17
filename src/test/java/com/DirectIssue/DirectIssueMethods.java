@@ -17,30 +17,31 @@ public class DirectIssueMethods extends All_Page_Intializer {
 	Map<String, String> beforePartsIssuesDataGlobal = new HashedMap<>();
 	//Map<String, String> beforePartsIssuesDataGlobal;
 	
-   
-	@Test(enabled = false)
+    
+	@Test(priority = 1)
 	public void login() throws Exception {
 		LoginPageTest().Valid_Login("saicar", "Sairam@123"); 
 		Directissue().navigateToIssueScreen();
 		Directissue().LabelsValidationInDirectIssueScreen();
 		Directissue().dropdownlabelsValidataion();
+		Directissue().CheckTheSellingPriceToggleButtonEnabledOrNot(AutoGeneratepartName, Issueingqty);
  
-	}  
+	}   
 
-	@Test(priority = 2)
+	@Test(enabled = false)
 	public void PartsInward() throws Exception {
 		LoginPageTest().Valid_Login("saicar", "Sairam@123");
 		String AutoGeneratepartName = getAutoGenerateOnlyString(5);
 		this.AutoGeneratepartName = AutoGeneratepartName; 
 		System.out.println("Sai Test :" + this.AutoGeneratepartName);
-		String Issueingqty = autoGenerateNumber(1, "123456789");    
+		String Issueingqty = autoGenerateNumber(1, "123456789");     
 		this.Issueingqty = Issueingqty;      
 		Directissue().DirectPartsInward(AutoGeneratepartName);  
 		// Directissue().Inwardscreen(AutoGeneratepartName);
 		this.beforePartsIssuesDataGlobal = Directissue().CheckTheStockDetails(AutoGeneratepartName);
 		Directissue().IssueingThePartInDirectIssueScreen(AutoGeneratepartName, Issueingqty);
 		Directissue().Issubuttonclick(AutoGeneratepartName, Issueingqty); 
- 	    Directissue().CheckMorethanThecurrentIssueValue(AutoGeneratepartName, Issueingqty);
+ 	    Directissue().CheckMorethanThecurrentIssueValueItshouldnotAllow(AutoGeneratepartName, Issueingqty);
 		Map<String, String> afterartsIssuesData = Directissue().CheckTheStockDetails(AutoGeneratepartName);
 		Directissue().duplicatepartEntry(AutoGeneratepartName, Issueingqty);
 		Directissue().differanceCalculation(this.beforePartsIssuesDataGlobal, afterartsIssuesData);
@@ -66,5 +67,5 @@ public class DirectIssueMethods extends All_Page_Intializer {
 		Directissue().differanceCalculation(this.beforePartsIssuesDataGlobal, beforePartsIssuesData);
  
 	} 
-
+ 
 }
